@@ -64,7 +64,7 @@ public class Server {
             Request request = new Request(parts);
             Map<String, Handler> handlerMap = handlers.get(request.getMethod());
 
-            if (handlers.containsKey(request.getPath())) {
+            if (handlerMap.containsKey(request.getPath())) {
                 Handler handler = handlerMap.get(request.getPath());
                 handler.handle(request, out);
             } else {

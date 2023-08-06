@@ -4,12 +4,12 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 
 public class Main {
-    private static  int port= 9999;
-    private static  int threadPool= 64;
+    private static int port = 9999;
+    private static int threadPool = 64;
 
 
     public static void main(String[] args) {
-        Server server = new Server( threadPool);
+        Server server = new Server(threadPool);
 
         server.addHandler("GET", "/classic.html", (request, responseStream) -> {
             try {
@@ -19,6 +19,7 @@ public class Main {
                         "{time}",
                         LocalDateTime.now().toString()
                 ).getBytes();
+                //final String mimeType = Files.probeContentType(filePath);
                 responseStream.write((
                         "HTTP/1.1 200 OK\r\n" +
                                 "Content-Type: " + request.getMethod() + "\r\n" +
@@ -28,6 +29,7 @@ public class Main {
                 ).getBytes());
                 responseStream.write(content);
                 responseStream.flush();
+
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
